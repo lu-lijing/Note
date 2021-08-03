@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <div class="notecontent">
+        <div class="navbar">
+            <div class="subnav"><button class="subnavbtndropdown">AWS Lab <i class="fa-caret-down"></i></button>
+                <div class="subnavdropdown-container">
+                <a href="#lab1">lab1</a>
+                <a href="#lab2">lab2</a>
+                <a href="#lab3">lab3</a>
+                </div>
+            </div>
+
+            <div class="subnav"><button class="subnavbtndropdown">AWS Note <i class="fa-caret-down"></i></button>
+                <div class="subnavdropdown-container">
+                    <a href="#vpc">VPC</a>
+                    <a href="#database">Database</a>
+                    <a href="#route53">Route53</a>
+                    <a href="#ec2">EC2</a>
+                    </div>
+            </div>
+            <div class="subnav"><button class="subnavbtndropdown">Linux Shell <i class="fa-caret-down"></i></button>
+                <div class="subnavdropdown-container">
+
+                </div>
+            </div>
+        </div>
+        <!--AWS Lab-->
+        <h1>AWS Lab</h1>
+        <h2 id="lab1">Create S3 static site</h2>
+        <ol>
+            <li>Create bucket: allow all public access</li>
+            <li>In "property", enable website hosting</li>
+            <li>add custom JSON file to bucket policy to enable public access</li>
+        </ol>
+
+        <h2 id="lab2">Add users to different groups</h2>
+        <ol>
+            <li>
+                <ul>
+                    <li>(Users and groups are pre-created) Each user has an USER ARN whcih identifies user uniquely.</li>
+                    <li>(Under each group, can attach pre-built policy) Policy can be attached either groups or users.</li>
+                    <li>Inline policy: apply to one user or one group granualy.</li>
+                    <li>An explict "Deny *" will deny all.</li>
+                    <li>To log in as an user, go to IAM Dashboard, copy "sign-in URL"</li>
+                    <li></li>
+                </ul> 
+            </li>
+            <li>Go to each group, add user into it.</li>
+        </ol>
+
+        <!--AWS Note-->
+        <h1>AWS Note</h1>
+        <h2 id="vpc">VPC</h2>
+        <h2 id="database">Database</h2>
+        <h2 id="route53">Route53</h2>
+
+        <h2 id="ec2">EC2</h2>
+            <ol>
+                <li>Pricing
+                    <ul>
+                        <li>On demand: fix rate/hr or second</li>
+                        <li>Reserved: 1/3 year term, for predictable/steady</li>
+                        <li>Standar: 75% off</li>
+                        <li>Convertible: can change instance type,54%off, (switch from t4 to R2)</li>
+                        <li>Scheduled: within specific start time, duration</li>
+                        <li>Spot: prices fluctuates, you set price, for flexible start/end time, Amazon can have the capacity back, only charged for hours you use</li>
+                        <li>Dedicated hosts: physical eC2 server, for regulatory & un-multile-tenancy, can on-demand hourly, up to 70% off if purchased as "Reserved";</li>
+                    </ul>
+
+                </li>
+            </ol>
+            <p>
+                2. Launch EC2 instance (lab)<br>
+                3. Security groups (lab): no deny rules<br>
+                4. EBS 101:<br>
+                     EBS: elastic block storage, auto-replicated, virtual hard disk drive<br>
+                     types:<br>
+                        General SSD:<br>
+                        Provisioned SSD<br>
+                        Throughout Optimized Hard Disk drive:<br>
+                        Cold:<br>
+                        Magnetic:<br>
+                    3. EBS volumes & Snapshots (LAB)<br>
+                5. AMI types: EBS and Instance Store, same: reboot won't lose data, termination loses data<br>
+                6. EBS volume: can be stopped,<br>
+                7. Instance store: can only be reboot or terminated, not free tier, aka "Ephemeral Storage", will lose data if host fails,<br>
+                8. select AMI can be based on: region,<br>
+                9. ENI, ENA, EFA<br>
+                10. ENI: elastic network interface, virtual network card, basic, low cost<br>
+                11. EN: enhanced networking, 10-100GB/s<br>
+                12. EFA: high performance computing, oy-bypass,machine learning;<br>
+                13. Encrypted root device volume & snapshot (lab)<br>
+                14. spot instances & spot fleets<br>
+                    Use unused EC2 capacity and up to a 90% discount. <br>
+                    Good for various flexible application&stateless fault tolerant or flexible applications, such as big data, containerized workloads, CICD, web servers, high performance computing, and other tests and development workloads as well.<br>
+                    So if your application can be terminated with one or two minutes notice, and then you start it up again, when you get a better price, then that would be a great use case.<br>
+                    So the way spot instances work is you have a spot price and you basically decide on your maximum spot price and the instance is going to be provisioned so long as the spot price is below your maximum spot price.<br>
+                    The hourly spot price is going to vary depending on the capacity and the region and if the spot price goes above your maximum you have two minutes to choose whether or not you should terminate your EC2 instances. <br>
+                    Now you can prevent this using spot blocks. Spot blocks basically allow you to stop your spot instances from being terminated even if the spot price goes over your maximum spot price and you can set spot blocks for between one to six hours currently.<br>
+                    Spot instances are useful for the following tasks: big data and analytics, containerized workloads, CI and CD and testing, web services,image and media rendering as well as high performance computing. <br>
+                    Well, it's not good for persistent workloads. It's not good for critical jobs and it's not good for databases.<br>
+                9. EC2 hibernate 冬眠<br>
+                10. cloud watch 101 (lab)<br> 
+                11. AWS CLI (command line)<br>
+         
+                12. IAM roles (lab)<br>
+                13. bootstrap scripts (demo)<br>
+                14. Instance meta data (demo)<br>
+                15. EFS (lab): elastic file system, can share among ec2, support NSF4, within a region , read after write; unix or Linux;<br>
+                16. Amazon FSx: windows-server-messege-block-based file system,<br>
+                
+                
+                17. EC2 placement groups<br>
+                    1. clustered: a group on instances in 1 AZ in same region, for low-latency, high network throughput吞吐量,<br>
+                    2. spread:instances in different underlying hardware,<br>
+                    3. partition: instances divided into partition, each partition has its own rack and network, multiple EC2 instances HDFS, HBase, and Cassandra;<br>
+            
+                18. HPC: high performance compute<br>
+            data transfer: snowball/snowmobile, DataSync, Direct Connect;<br>
+            Compute&Networking: ec2(gpu/cpu optimized), fleet(spot instances/spot fleets), placement groups; EN (SR-IOV) (ENA&VF), EFA(linux/unix);<br>
+            storage: EBS(up to 64k IOPS), Instance store(millions IOPS, cannot be stopped); S3(object), EFS(file, across multiple ec2), FXs(HPC);<br>
+            Orchestration&Automation: Batch(computing batches jobs, multi-node), ParallelCluster(text file);<br>
+            19. WAF: web application firewall, http://......?id=.....<br>
+        
+            </p>
+        <!-- Linux Shell-->
+
+    </div>
+
+    <script>
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("subnavbtndropdown");
+        var i;
+        
+        for (i = 0; i < dropdown.length; i++) {
+          dropdown[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var dropdownContent = this.nextElementSibling;
+          if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+          } else {
+          dropdownContent.style.display = "block";
+          }
+          });
+        }
+        </script>
+</body>
+
+</html>

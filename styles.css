@@ -1,0 +1,58 @@
+.navbar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: lightblue;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  .subnav .subnavbtndropdown{
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    z-index: 1;
+  }
+
+
+  .subnavdropdown-container{
+    display: none;
+    background-color:rgb(247, 247, 247);
+    padding-left: 8px;
+  }
+
+  /* Add an active class to the active dropdown button */
+.active {
+    background-color: green;
+    color:red;
+  }
+
+  /* On mouse-over */
+.subnav a:hover, .subnavbtndropdown:hover {
+    color: gold;
+  }
+
+  /* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+  }
+  
+
+
+  .notecontent {
+    margin-left: 20%;
+    font-size: 18px;
+    }
+
