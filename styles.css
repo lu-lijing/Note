@@ -1,20 +1,87 @@
-.navbar {
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+
+body {
+	margin: 0;
+	font-family: 'Work Sans', sans-serif;
+
+}
+header{
+  background-color:rgb(148, 156, 180);
+}
+header::after{
+  content: '';
+  display: table;
+  clear:both;
+}
+
+
+.logo{
+  float:left ;
+  width: 15%;
+  padding-left: 9%;
+}
+
+nav{
+  float: right;
+}
+
+nav ul{
+  margin:0;
+  padding:0;
+  list-style: none;
+
+}
+nav li {
+  display: inline-block;
+  margin-left: 70px;
+  padding-top: 23px;
+  color:white;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  position: relative;
+}
+ nav li:hover{
+  color:gainsboro;
+  cursor: pointer;
+ }
+
+ nav li::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background-color:purple;
+
+  position: absolute;
+  top: 0;
+  width: 0%;
+
+  transition: all ease-in-out 250ms;
+}
+
+nav li:hover::before {
+  width: 100%;
+}
+
+.sidenav {
     height: 100%;
     width: 200px;
     position: fixed;
+    
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: lightblue;
+    background-color: rgb(148, 156, 180);
     overflow-x: hidden;
     padding-top: 20px;
+    margin-top: 8%;
   }
 
-  .subnav .subnavbtndropdown{
+  .sidenav a, .sidenavdropdown-btn{
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 20px;
-    color: #818181;
+    color:white;
     display: block;
     border: none;
     background: none;
@@ -22,26 +89,24 @@
     text-align: left;
     cursor: pointer;
     outline: none;
-    z-index: 1;
   }
 
-
-  .subnavdropdown-container{
-    display: none;
-    background-color:rgb(247, 247, 247);
-    padding-left: 8px;
+  .sidenav a:hover, .sidenavdropdown-btn:hover {
+    color:gainsboro;
   }
 
-  /* Add an active class to the active dropdown button */
-.active {
-    background-color: green;
-    color:red;
+  .active {
+    background-color:purple;
+    color: white;
   }
 
-  /* On mouse-over */
-.subnav a:hover, .subnavbtndropdown:hover {
-    color: gold;
-  }
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.sidenavdropdown-container {
+  display: none;
+  background-color:rosybrown;
+  padding-left: 8px;
+}
+
 
   /* Optional: Style the caret down icon */
 .fa-caret-down {
@@ -51,8 +116,20 @@
   
 
 
-  .notecontent {
+  .main {
     margin-left: 20%;
     font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
     }
 
+  .main ul{
+    list-style-type: disc;
+  }
+
+    
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

@@ -2,35 +2,65 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+    <meta name="description" content="Note">
+    <title>Note</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
 <body>
-    <div class="notecontent">
-        <div class="navbar">
-            <div class="subnav"><button class="subnavbtndropdown">AWS Lab <i class="fa-caret-down"></i></button>
-                <div class="subnavdropdown-container">
+    <header>
+        <div class="topnav">
+            <img src="https://lijingluaws.s3.amazonaws.com/cat" alt="logo" class="logo"></img>
+        
+            <nav>
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Portfolio</a></li>
+                    <li><a href="">My Learning Path and Note</a></li>
+                    <li><a href="">Contact</a></li>
+                </ul>
+            </nav>
+            </div>
+    </header>
+
+
+    <!--button1-->
+    <div class="sidenav">
+        <button class="sidenavdropdown-btn">AWS Lab 
+            <i class="fa-caret-down"></i>
+        </button>
+            <div class="sidenavdropdown-container">
+
                 <a href="#lab1">lab1</a>
                 <a href="#lab2">lab2</a>
                 <a href="#lab3">lab3</a>
-                </div>
             </div>
+    
+    <!--button2-->
+    
+            <button class="sidenavdropdown-btn">AWS Note 
+                <i class="fa-caret-down"></i>
+            </button>
+            <div class="sidenavdropdown-container">
+                <a href="#vpc">VPC</a>
+                <a href="#database">Database</a>
+                <a href="#route53">Route53</a>
+                <a href="#ec2">EC2</a>
+            </div>
+    
+    <!-- button3-->
+            <button class="sidenavdropdown-btn">Linux Shell 
+                <i class="fa-caret-down"></i>
+            </button>
+            <div class="subnavdropdown-container">
 
-            <div class="subnav"><button class="subnavbtndropdown">AWS Note <i class="fa-caret-down"></i></button>
-                <div class="subnavdropdown-container">
-                    <a href="#vpc">VPC</a>
-                    <a href="#database">Database</a>
-                    <a href="#route53">Route53</a>
-                    <a href="#ec2">EC2</a>
-                    </div>
             </div>
-            <div class="subnav"><button class="subnavbtndropdown">Linux Shell <i class="fa-caret-down"></i></button>
-                <div class="subnavdropdown-container">
-
-                </div>
-            </div>
-        </div>
+        
+    </div>
+    <div class="main">
+        
         <!--AWS Lab-->
         <h1>AWS Lab</h1>
         <h2 id="lab1">Create S3 static site</h2>
@@ -55,12 +85,79 @@
             <li>Go to each group, add user into it.</li>
         </ol>
 
+        <h2 id="lab3">VPC endpoint: create an endpoint</h2>
+        <ol>
+            <li>IAM: create a role for s3 access<br>choose service:ec2<br>attach policy: s3 full access<br></li>
+            <li>ec2: go to instance setting<br>attach IAM role:s3fullaccess<br> </li>
+            <li>vpc: go to ACL<br>move subnet to default ACL: <br> </li>
+            <li>ssh to ec2:<br>sudo su<br>ls to private keypair<br>ssh ec2-user@private_ip -i privateKeyPair.pem<br>sudo su<br>aws s3 ls (list all s3 buckets)<br>echo "test" > test.txt (create tset file and output to txt)<br>ls<br>aws s3 cp test.txt s3://bucketName<br></li>
+            <li>vpc: now you can delete 0.0.0.0/0 for the main route table</li>
+            <li>ec2 instance: <br>aws s3 ls(no route anymore)<br></li>
+            <li>vpc: create endpoint<br>service catagory: aws<br> service name:s3 gateway<br>choose vpc and routw table and policy<br>create vpc endpoint</li>
+            <li>aws s3 ls --region us-east2 </li>
+        </ol>
+
         <!--AWS Note-->
         <h1>AWS Note</h1>
         <h2 id="vpc">VPC</h2>
+            <ol>
+                <li>VPC Endpoints
+                    <ul>
+                        <li>to privately connect your VPC to AWS services</li>
+                        <li>NO need internet gateway, NAT device, vpn, or AWS direct connect</li>
+                        <li>insances in vpc NO need public IP</li>
+                    </ul>
+                </li>
+                <li>2 types vpc endpoints
+                    <ul>
+                        <li>Interface endpoints: is EIN(elastic network interface) with private ip that attached to an aws service.</li>
+                        <li>Gateway endpoints: only supports S3 & DynamoDB</li>
+                    </ul>
+                </li>
+                <li>AWS private link
+                    <ul>
+                        <li>ways to open applications to ther VPCs
+                            <ul>
+                                <li>open VPC to internet: not secure, hard to manage</li>
+                                <li>VPS peering: need to create many peerings, not secure</li>
+                                <li>private link: secure, no need peering/reoute tables/NAT/IGW <br>only needs Network Load Balancer on VPC and ENI on customer VPC</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>AWS Transit Gateway
+                    <ul>
+                        <li>allows transitive peering (simplified topology) for thsousands VPCs and on-premises dc</li>
+                        <li>hub-andspoke model</li>
+                        <li>one region only, cannot across multi regions</li>
+                        <li>can across AWS accounts using Resources Access Manager</li>
+                        <li>can use route tables to limit VPCs talking to each other</li>
+                        <li>works with direct connect and vpn</li>
+                        <li>supports IP multicast(not supported by any other AWS service)</li>
+                    </ul>
+                </li>
+                <li>AWS VPN CloudHub
+                    <ul>
+                        <li>to connects multiple sites together who have their own VPN connections </li>
+                        <li>hub-spoke model</li>
+                        <li>cheap, easy to manage</li>
+                        <li>operate in public internet, but customer traffic and AWS vpn Cloudhub is encrypted</li>
+                    </ul>
+                </li>
+                <li>AWS Network costs
+                    <ul>
+                        <li>Free: traffic comes into vpc application</li>
+                        <li>Free: from one application to another, only if privare IP in same AZ </li>
+                        <li>$0.01: across AZs</li>
+                        <li>cost more:public ip and outside AZ -> across regions more</li>
+                        
+                    </ul>
+                </li>
+
+            </ol>
         <h2 id="database">Database</h2>
         <h2 id="route53">Route53</h2>
-
+        
         <h2 id="ec2">EC2</h2>
             <ol>
                 <li>Pricing
@@ -99,7 +196,7 @@
                 13. Encrypted root device volume & snapshot (lab)<br>
                 14. spot instances & spot fleets<br>
                     Use unused EC2 capacity and up to a 90% discount. <br>
-                    Good for various flexible application&stateless fault tolerant or flexible applications, such as big data, containerized workloads, CICD, web servers, high performance computing, and other tests and development workloads as well.<br>
+                    Good for flexible application&stateless fault tolerant or flexible applications:big data, containerized workloads, CICD, web servers, high performance computing, and other tests and development workloads as well.<br>
                     So if your application can be terminated with one or two minutes notice, and then you start it up again, when you get a better price, then that would be a great use case.<br>
                     So the way spot instances work is you have a spot price and you basically decide on your maximum spot price and the instance is going to be provisioned so long as the spot price is below your maximum spot price.<br>
                     The hourly spot price is going to vary depending on the capacity and the region and if the spot price goes above your maximum you have two minutes to choose whether or not you should terminate your EC2 instances. <br>
@@ -136,7 +233,7 @@
 
     <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-        var dropdown = document.getElementsByClassName("subnavbtndropdown");
+        var dropdown = document.getElementsByClassName("sidenavdropdown-btn");
         var i;
         
         for (i = 0; i < dropdown.length; i++) {
